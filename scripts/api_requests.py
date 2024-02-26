@@ -21,7 +21,8 @@ payload = {
 }
 
 # The URL for the POST request
-url = "https://api.openhive.network"
+# url = "https://api.openhive.network"
+url = "https://api.hive.blog"
 
 # Perform the POST request
 try:
@@ -35,6 +36,8 @@ try:
         for post in content:
             print(f"Title: {post['title']}")
             body = post['body']
+            # remove carriage returns and newlines in body
+            body = body.replace("\r", "").replace("\n", "")
             print(f"Body: {body}")
             print()
     else:

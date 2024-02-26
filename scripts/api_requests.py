@@ -30,8 +30,13 @@ try:
     # Check if the request was successful
     if response.status_code == 200:
         print("Request successful!")
-        # Process the response if needed
-        print(response.json())
+        # show response.json title and body content:
+        content = response.json()["result"]
+        for post in content:
+            print(f"Title: {post['title']}")
+            body = post['body']
+            print(f"Body: {body}")
+            print()
     else:
         print(f"Request failed with status code: {response.status_code}")
 except RequestException as e:

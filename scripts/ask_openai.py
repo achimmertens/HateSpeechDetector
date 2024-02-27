@@ -43,7 +43,7 @@ for post in posts:
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
-        content="Does the following text contain love speech? If yes, answer with 'This text contains love speech'. If the text contains hate speech, answer with 'This text contains hate speech'. If you find love, please use exactly the following phrase in your answer: 'There is love in your text.'. If you find charity, based on the examples, use the phrase '!CHARY, this text is about charity'. If you are not sure, use 'I am not sure about to categorize this content.' Only use these four phrases to answer. Here is the text to analyze: Title: "+title+" Body: "+body,
+        content="Does the following text contain hate speech? If yes, answer with 'This text contains hate speech'. If you find charity, based on the examples, use the phrase '!CHARY, this text is about charity'. If you are not sure, use 'I am not sure about to categorize this content.' Only use these phrases to answer. Here is the text to analyze: Title: "+title+" Body: "+body,
     )
 
     run = client.beta.threads.runs.create(
@@ -60,6 +60,11 @@ for post in posts:
             print("Done for post: ", title)
             messages = client.beta.threads.messages.list(thread_id=thread.id)
 
+            # Nehmen Sie die letzte Nachricht des Assistants (die Antwort)
+            assistant_message = next(m for m in messages if m.role == 'assistant').content[0].text.value
+            post['assistant_message'] = assistant_message  # Antwort zum Post hinzufügen
+
+
             print("Messages for post: ", title)
             for message in messages:
                 assert message.content[0].type == "text"
@@ -72,3 +77,5 @@ for post in posts:
 
 # Den Assistant am Ende löschen
 client.beta.assistants.delete(assistant.id)
+with open("analyzedText.json", "w", encoding='utf-8') as file:
+    json.dump(posts, file, ensure_ascii=False, indent=4)

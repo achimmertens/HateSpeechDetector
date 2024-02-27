@@ -25,7 +25,11 @@ These are examples of charity:
 "body":"Do you remember? My birthday wish, the fundraising campaign, Bosco.... the new kitchen! Here it is! The door was installed today. However, we still have a small suggestion for improvement regarding the height of the hob...let's see. Bonita, Bosco's daughter, invited the little boy, who said that Bosco loves him more than his daughter because he has a kitchen and Bonita doesn't. Do you remember? She showed him the new kitchen and he asked her if she had thanked her father for it! She said YES! And we all say thank you again to all the donors!"}
 ]}
 
+These are not examples of charity:
+{"I need money", "Please help me", "I am in need"}
 
+These are not examples of Hatespeech:
+{"Hatespeech", "hatefull","Hate comment"}
 
 
 The creator of this document is Achim.

@@ -1,6 +1,7 @@
 import requests
 from requests.exceptions import RequestException
 import datetime
+import re
 
 # Set up the proxies for the session
 proxies = {
@@ -12,6 +13,23 @@ proxies = {
 headers = {
     "Content-Type": "application/json",
 }
+
+
+def remove_text_inside_brackets(text):
+    """
+    This function removes any text inside brackets and any URLs.
+    """
+    # Remove text inside any brackets
+    # The regex pattern finds text inside (), [] and {}
+    no_brackets = re.sub(r"\[.*?\]|\(.*?\)|\{.*?\}", "", text)
+    # Remove URLs
+    # The regex pattern finds strings that look like URLs
+    no_urls = re.sub(r'http[s]?://\S+', '', no_brackets)
+    return no_urls.strip()
+
+
+
+
 
 # The payload for the POST request
 # The before_date is set to tomorrow to ensure we get the latest posts
@@ -47,9 +65,11 @@ try:
             # remove carriage returns and newlines in body
             body = body.replace("\r", "").replace("\n", "")
             # safe body to file with the name textToAnalyze.txt
+            # remove all
+            clean_text = remove_text_inside_brackets(body)
             with open("textToAnalyze.txt", "w") as file:
-                file.write(body)
-            print(f"Body: {body[:200]}...")  # Truncate body for display purposes
+                file.write(clean_text)
+            print(f"Body: {clean_text[:200]}...")  # Truncate body for display purposes
             print()
     else:
         print(f"Request failed with status code: {response.status_code}")

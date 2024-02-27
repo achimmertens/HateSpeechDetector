@@ -24,7 +24,7 @@ payload = {
         "author": "achimmertens",
         "start_permlink": "",
         "before_date": before_date,
-        "limit": "10"
+        "limit": "1"
     },
     "id": 1
 }
@@ -46,6 +46,9 @@ try:
             body = post['body']
             # remove carriage returns and newlines in body
             body = body.replace("\r", "").replace("\n", "")
+            # safe body to file with the name textToAnalyze.txt
+            with open("textToAnalyze.txt", "w") as file:
+                file.write(body)
             print(f"Body: {body[:200]}...")  # Truncate body for display purposes
             print()
     else:

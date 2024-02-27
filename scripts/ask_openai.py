@@ -16,11 +16,20 @@ proxies = {
     'http': 'http://sia-lb.telekom.de:8080',
     'https': 'http://sia-lb.telekom.de:8080'
 }
-# Setzen Sie die Proxies für die OpenAI-Bibliothek
-# openai.Request.request_session.proxies = proxies
+# export http_proxy=http://sia-lb.telekom.de:8080
+# export https_proxy=http://sia-lb.telekom.de:8080
 
 # Der zu analysierende Text
-text_to_analyze = "I have helped some poor people in the street to get some food."
+#text_to_analyze = "I have helped some poor people in the street to get some food."
+
+# Open the file "testToAnalyze.txt" and read the content into the variable "text_to_analyze".
+with open("textToAnalyze.txt", "r") as file:
+    text_to_analyze = file.read()
+
+print("Folgender Text wird analysiert: ")
+print(text_to_analyze)
+
+
 
 # Upload a file with an "assistants" purpose
 file = client.files.create(

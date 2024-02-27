@@ -20,7 +20,7 @@ proxies = {
 # openai.Request.request_session.proxies = proxies
 
 # Der zu analysierende Text
-# text_to_analyze = "Hier steht der Text, der überprüft werden soll."
+text_to_analyze = "I have helped some poor people in the street to get some food."
 
 # Upload a file with an "assistants" purpose
 file = client.files.create(
@@ -31,7 +31,7 @@ file = client.files.create(
 
 assistant = client.beta.assistants.create(
     name="Hate Speech Detector",
-    instructions="You are an officer that checks, if there is love in text. For examples look into knowledge.txt. If you find love, please use exactly the following phrase in your answer: 'This text contains love'.",
+    instructions="You are an officer that checks, if there is love, charity or hate in the text. For examples look into knowledge.txt.",
     tools=[{"type": "retrieval"}],
     # model="gpt-4-1106-preview",
     model="gpt-4-turbo-preview",
@@ -43,7 +43,7 @@ thread = client.beta.threads.create()
 message = client.beta.threads.messages.create(
     thread_id=thread.id,
     role="user",
-    content="Does the following text contain love speech? If yes, answer with 'This text contains love speech': Who is the creator of the document? btw. I love you",
+    content="Does the following text contain love speech? If yes, answer with 'This text contains love speech'. If the text contains hate speech, answer with 'This text contains hate speech'  If you find love, please use exactly the following phrase in your answer: 'There is love in your text.'. If you find charity, based on the examples, use the phrase '!CHARY, this text is about charity'. If you are not sure, use 'I am not sure about to categorize this content.' Only use one of these four phrases to answer. Here is the text to analyze: "+text_to_analyze,
 )
 
 run = client.beta.threads.runs.create(

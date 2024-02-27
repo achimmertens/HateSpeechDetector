@@ -52,7 +52,7 @@ thread = client.beta.threads.create()
 message = client.beta.threads.messages.create(
     thread_id=thread.id,
     role="user",
-    content="Does the following text contain love speech? If yes, answer with 'This text contains love speech'. If the text contains hate speech, answer with 'This text contains hate speech'  If you find love, please use exactly the following phrase in your answer: 'There is love in your text.'. If you find charity, based on the examples, use the phrase '!CHARY, this text is about charity'. If you are not sure, use 'I am not sure about to categorize this content.' Only use one of these four phrases to answer. Here is the text to analyze: "+text_to_analyze,
+    content="Does the following text contain love speech? If yes, answer with 'This text contains love speech'. If the text contains hate speech, answer with 'This text contains hate speech'  If you find love, please use exactly the following phrase in your answer: 'There is love in your text.'. If you find charity, based on the examples, use the phrase '!CHARY, this text is about charity'. If you are not sure, use 'I am not sure about to categorize this content.' Only use these four phrases to answer. Here is the text to analyze: "+text_to_analyze,
 )
 
 run = client.beta.threads.runs.create(

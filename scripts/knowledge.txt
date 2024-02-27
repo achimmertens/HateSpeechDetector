@@ -1,0 +1,8 @@
+These are examples of love speech:
+- I love you.
+- You are a nice person.
+If someone uses one of these phrases, then there is love in the text and you as a bot should answer "There is love in the text."
+
+
+
+The creator of this document is Achim.

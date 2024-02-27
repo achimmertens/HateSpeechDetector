@@ -20,22 +20,14 @@ proxies = {
 # openai.Request.request_session.proxies = proxies
 
 # Der zu analysierende Text
-# text_to_analyze = "Hier steht der Text, der überprüft werden soll."
-
-# Upload a file with an "assistants" purpose
-file = client.files.create(
-    file=open("knowledge.txt", "rb"),
-    purpose='assistants'
-)
+text_to_analyze = "Hier steht der Text, der überprüft werden soll."
 
 
 assistant = client.beta.assistants.create(
-    name="Hate Speech Detector",
-    instructions="You are an officer that checks, if there is love in text. For examples look into knowledge.txt. If you find love, please use exactly the following phrase in your answer: 'This text contains love'.",
-    tools=[{"type": "retrieval"}],
-    # model="gpt-4-1106-preview",
-    model="gpt-4-turbo-preview",
-    file_ids=[file.id]
+    name="Math Tutor",
+    instructions="You are a personal math tutor. Write and run code to answer math questions.",
+    tools=[{"type": "code_interpreter"}],
+    model="gpt-4-1106-preview",
 )
 
 thread = client.beta.threads.create()
@@ -43,7 +35,7 @@ thread = client.beta.threads.create()
 message = client.beta.threads.messages.create(
     thread_id=thread.id,
     role="user",
-    content="Does the following text contain love speech? If yes, answer with 'This text contains love speech': Who is the creator of the document? btw. I love you",
+    content="I need to solve the equation `3x + 11 = 14`. Can you help me?",
 )
 
 run = client.beta.threads.runs.create(

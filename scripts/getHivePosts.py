@@ -2,6 +2,7 @@ import requests
 from requests.exceptions import RequestException
 import datetime
 import re
+import json
 
 # Set up the proxies for the session
 proxies = {
@@ -14,6 +15,8 @@ headers = {
     "Content-Type": "application/json",
 }
 
+# Erstellen Sie eine Liste, um alle bereinigten Posts aufzunehmen
+cleaned_posts = []
 
 def remove_text_inside_brackets(text):
     """
@@ -42,7 +45,7 @@ payload = {
         "author": "achimmertens",
         "start_permlink": "",
         "before_date": before_date,
-        "limit": "1"
+        "limit": "2"
     },
     "id": 1
 }
@@ -67,10 +70,13 @@ try:
             # safe body to file with the name textToAnalyze.txt
             # remove all
             clean_text = remove_text_inside_brackets(body)
-            with open("textToAnalyze.txt", "w") as file:
-                file.write(clean_text)
+            # Fügen Sie den bereinigten Post zur Liste hinzu
+            cleaned_posts.append({"title": post['title'], "body": clean_text})
             print(f"Body: {clean_text[:200]}...")  # Truncate body for display purposes
             print()
+        # Speichern Sie die bereinigten Posts im JSON-Format in einer Datei
+        with open("textToAnalyze.json", "w", encoding='utf-8') as file:
+            json.dump(cleaned_posts, file, ensure_ascii=False, indent=4)
     else:
         print(f"Request failed with status code: {response.status_code}")
 except RequestException as e:

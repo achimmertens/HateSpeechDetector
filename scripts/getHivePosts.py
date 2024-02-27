@@ -45,7 +45,7 @@ payload = {
         "author": "achimmertens",
         "start_permlink": "",
         "before_date": before_date,
-        "limit": "2"
+        "limit": "3"
     },
     "id": 1
 }
